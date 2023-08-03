@@ -1,0 +1,13 @@
+<%- include ("partials/header") -%>
+	<div class="pageHeaderFixed" style="background-image: url(/images/homeHeader.jpg)"></div>
+	<div class="pageFixedTitle" id="title"></div>
+	<div class="pageFixedContentText" id="text"></div>
+	<div class="pageHeaderSpace"></div>
+	<div class="bellowFixedHeader"></div>
+	<script>
+		var obavestenje 	=	JSON.parse(<%- JSON.stringify(obavestenje) %>);
+		document.getElementById("title").innerHTML 	=	obavestenje[0].title;
+		document.getElementById("text").innerHTML 	=	obavestenje[0].text;
+	</script>
+
+<%- include ("partials/footer") -%>

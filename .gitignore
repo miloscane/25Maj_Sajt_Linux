@@ -1,0 +1,8 @@
+/public/images
+/public/icons
+/public/downloads
+/public/videos
+/public/logos
+**/.DS_Store
+.env
+/node_modules

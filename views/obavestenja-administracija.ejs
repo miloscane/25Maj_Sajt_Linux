@@ -1,0 +1,135 @@
+<%- include ("partials/header") -%>
+	<div class="pageHeaderFixed" style="background-image: url(/images/homeHeader.jpg)"></div>
+	<div class="pageFixedTitle">ADMINISTRACIJA OBAVESTENJA</div>
+	<div class="pageHeaderSpace"></div>
+	<div class="bellowFixedHeader"></div>
+	<div class="section padded white">
+		<div class="blueButton" id="logout">
+			<a href="/logout">Izloguj se</a>
+		</div>
+		<div class="smallContent">
+			<div class="formWrap obavesenjeAdmin">
+				<form method="POST" action="/okaci-obavestenje" id="form">
+					<div class="inputTitle">Naslov</div>
+					<input type="text" class="inputTitleInput" name="title" id="title">
+					<div class="inputTitle">Datum</div>
+					<input type="date" class="dateInput" name="date" id="date">
+					<div class="inputTitle">Text Obavestenja</div>
+					<textarea id="mytextarea" name="tekst"></textarea>
+					<div class="inputTitle"> </div>
+					<input type="checkbox" name="vidljivo" id="vidljivo" style="width:auto;" checked>Obavestenje je vidljivo?<br>
+					<div class="inputTitle"> </div>
+					<input type="text" name="id" id="id" value="new" style="display:none">
+					<div class="inputTitle"> </div>
+					<div id="error"></div>
+					<div class="blueButton" id="submit" onclick="shouldSubmit()" style="padding:10px;color:rgb(255,255,255)">Okaci Obavestenje</div>
+				</form>
+			</div>
+
+			
+
+
+			<script src="https://cdn.tiny.cloud/1/a9qe7r3w3mxpkbxqrl4dhc3ocedokhniqg5au0mqvcssi4td/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+			<script>
+		      tinymce.init({
+		        selector: '#mytextarea',
+		        plugins: [
+		          'advlist','autolink',
+		          'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+		          'fullscreen','insertdatetime','media','table','help','wordcount'
+		        ],
+		        toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+		          'alignleft aligncenter alignright alignjustify | ' +
+		          'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+		      });
+		    </script>
+		    <script>
+		    	function shouldSubmit(){
+		    		if(document.getElementById("title").value){
+		    			document.getElementById("form").submit()
+		    		}else{
+		    			document.getElementById('error').innerHTML	=	"Obavestenje mora imati naslov";
+		    		}
+		    	}
+
+		    	var today	=	new Date();
+		    	var month 	=	today.getMonth()+1;
+		    	month 		=	month.toString().length<2 ? "0"+month:month;
+		    	var date 	=	today.getDate();
+		    	date 		=	date.toString().length<2 ? "0"+date:date;
+		    	document.getElementById("date").value	=	today.getFullYear()+"-"+month+"-"+date;
+
+		    	function editObavestenje(obid){
+		    		var obavestenje 	=	false;
+		    		for(var i=0;i<obavestenja.length;i++){
+		    			if(obid==obavestenja[i].id){
+		    				obavestenje =	JSON.parse(JSON.stringify(obavestenja[i]));
+		    				break;
+		    			}
+		    		}
+
+		    		document.getElementById("title").value			=	obavestenje.title;
+		    		document.getElementById("date").value			=	obavestenje.date;
+		    		tinymce.get('mytextarea').setContent(obavestenje.text);
+		    		console.log(obavestenje.text)
+		    		if(Number(obavestenje.visible)==1){
+		    			document.getElementById("vidljivo").checked	=	true;
+		    		}else{
+		    			document.getElementById("vidljivo").checked	=	false;
+		    		}
+		    		document.getElementById("id").value			=	obavestenje.id;
+
+		    		document.getElementById("logout").scrollIntoView();
+		    	}
+		    </script>
+		</div>
+	</div>
+
+	<div class="section white">
+		<div class="contentWidth">
+			<div class="adminObavestenja"></div>
+			<script>
+				var obavestenja		=	JSON.parse(<%- JSON.stringify(obavestenja) %>);
+				obavestenja.sort(function(a, b) {
+				    return parseFloat(b.actualdate) - parseFloat(a.actualdate);
+				});
+				for(var i=0;i<obavestenja.length;i++){
+					var obavestenjeJson		=	JSON.parse(JSON.stringify(obavestenja[i]));
+					var obavestenje		=	document.createElement("DIV");
+					obavestenje.setAttribute("class","adminObavestenje");
+
+						var title	=	document.createElement("DIV");
+						title.setAttribute("class","title");
+						title.innerHTML	=	obavestenjeJson.text;
+						obavestenje.appendChild(title);
+
+						var blueButton	=	document.createElement("DIV");
+						blueButton.setAttribute("class","blueButton");
+						blueButton.innerHTML	=	"Izmeni";
+						blueButton.setAttribute("onclick","editObavestenje('"+obavestenjeJson.id+"')");
+						obavestenje.appendChild(blueButton);
+
+						var destroy		=	document.createElement("DIV");
+						destroy.setAttribute("class","deletePost");
+						destroy.setAttribute("onclick","obrisiObavestenje('"+obavestenjeJson.id+"')");
+						destroy.innerHTML	=	"X";
+						obavestenje.appendChild(destroy);
+
+					document.getElementsByClassName("adminObavestenja")[0].appendChild(obavestenje);
+				}
+			</script>
+		</div>
+		<form method="POST" style="display:none" action="/obrisi-obavestenje" id="delete-form">
+			<input type="text" id="destroy-id" name="obavestenjeID">
+		</form>
+		<script>
+			function obrisiObavestenje(obavestenjeID){
+				document.getElementById("destroy-id").value = obavestenjeID;
+				document.getElementById("delete-form").submit();
+			}
+		</script>
+	</div>
+
+
+
+<%- include ("partials/footer") -%>

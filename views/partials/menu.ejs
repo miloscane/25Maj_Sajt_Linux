@@ -1,0 +1,131 @@
+<div class="headerNavigation">
+	<div class="contentWidth">
+		<div class="logoWrap">
+			<a href="/"><img src="/logos/logo.png"></a>
+		</div>
+		<div class="menuWrap">
+			<div class="social">
+				<div class="contactHeader2">
+					<a href="tel:+381628875710">062/8875-710</a> | <a href="mailto:info@25maj.rs">инфо@25мај.рс</a>
+				</div>
+				<div class="itemWrap">
+					<a href="https://www.facebook.com/bazen25maj/" target="_blank">
+						<img class="icon" src="/logos/fb.png?<%=fileVersion%>">
+						<img class="cIcon" src="/logos/fb-y.png?<%=fileVersion%>">
+					</a>
+				</div>
+				<div class="itemWrap">
+					<a href="https://twitter.com/bazen25maj" target="_blank">
+						<img class="icon" src="/logos/tw.png?<%=fileVersion%>">
+						<img class="cIcon" src="/logos/tw-y.png?<%=fileVersion%>">
+					</a>
+				</div>
+				<div class="itemWrap">
+					<a href="https://instagram.com/bazen_25maj" target="_blank">
+						<img class="icon" src="/logos/inst.png?<%=fileVersion%>">
+						<img class="cIcon" src="/logos/inst-y.png?<%=fileVersion%>">
+					</a>
+				</div>
+				<div class="itemWrap responsiveMenuHandle" style="background-color:rgba(0,0,0,0)" data-opened="0" onclick="openMenu(this)">
+					<img id="menuIcon" src="/icons/menu-closed-yellow.png?<%=fileVersion%>">
+				</div>
+				<script>
+					function openMenu(elem){
+						var menuOpened	=	Number(elem.dataset.opened);
+						if(menuOpened==0){
+							//open the menu
+							document.getElementsByClassName("menu")[0].classList.add("menuOpened")
+							document.getElementById("menuIcon").src = "/icons/menu-opened-yellow.png?<%=fileVersion%>";
+							elem.dataset.opened = 1;
+						}else{
+							//close the menu
+							document.getElementsByClassName("menu")[0].classList.remove("menuOpened");
+							document.getElementById("menuIcon").src = "/icons/menu-closed-yellow.png?<%=fileVersion%>";
+							elem.dataset.opened = 0;
+
+						}
+					}
+				</script>
+			</div>
+			<div class="menu">
+				<div class="menuItemWrap">
+					<div class="item" onclick="responsiveOpener(this)">
+						<div class="text" style="width:75px;text-align: center;">Главно</div>
+						<div class="carret">
+							<img class="whiteIcon" src="/icons/carret.png">
+							<img class="colored" src="/icons/carret-blue.png">
+						</div>
+					</div>
+					<div class="subMenu">
+						<div class="subMenuItem"><a href="/dokumenti">Документи</a></div>
+						<div class="separator"></div>
+						<div class="subMenuItem"><a href="/o-nama">О нама</a></div>
+						<div class="separator"></div>
+						<div class="subMenuItem"><a href="/javne-nabavke">Јавне Набавке</a></div>
+					</div>
+				</div>
+				<div class="menuItemWrap">
+					<div class="item" onclick="responsiveOpener(this)">
+						<div class="text">Бесплатни програми</div>
+						<div class="carret">
+							<img class="whiteIcon" src="/icons/carret.png">
+							<img class="colored" src="/icons/carret-blue.png">
+						</div>
+					</div>
+					<div class="subMenu">
+						<div class="subMenuItem"><a href="/besplatni-programi-deca">Деца</a></div>
+						<div class="separator"></div>
+						<div class="subMenuItem"><a href="/besplatni-programi-penzioneri">Пензионери</a></div>
+					</div>
+				</div>
+				<div class="menuItemWrap">
+					<div class="item" onclick="responsiveOpener(this)">
+						<div class="text">Комерцијални програми</div>
+						<div class="carret">
+							<img class="whiteIcon" src="/icons/carret.png">
+							<img class="colored" src="/icons/carret-blue.png">
+						</div>
+					</div>
+					<div class="subMenu">
+						<div class="subMenuItem"><a href="/bazeni-na-otvorenom">Базени на отвореном</a></div>
+						<div class="separator"></div>
+						<div class="subMenuItem"><a href="/zatvoreni-bazen">Затворени базен</a></div>
+						<div class="separator"></div>
+						<div class="subMenuItem"><a href="/wellness-centar">Wellness Центар</a></div>
+						<div class="separator"></div>
+						<div class="subMenuItem"><a href="/sportska-sala">Спортска Сала</a></div>
+						<div class="separator"></div>
+						<!--<div class="subMenuItem"><a href="/kombo-paketi">Комбо пакети</a></div>
+						<div class="separator"></div>-->
+						<div class="subMenuItem"><a href="/skolica-plivanja">Школица пливања</a></div>
+						<div class="separator"></div>
+					</div>
+				</div>
+				<div class="menuItemWrap">
+					<div class="item"><a href="/obavestenja">Обавештења</a></div>
+				</div>
+				<!--<div class="menuItemWrap">
+					<div class="item"><a href="/">Њузлетер</a></div>
+				</div>-->
+				<script>
+					function responsiveOpener(elem){
+						if(document.getElementsByClassName("menu")[0].classList.contains("menuOpened")){
+							if(elem.classList.contains("subMenuOpened")){
+								elem.classList.remove("subMenuOpened");
+								elem.parentElement.getElementsByClassName("subMenu")[0].style.display="none";
+							}else{
+								elem.classList.add("subMenuOpened");
+								elem.parentElement.getElementsByClassName("subMenu")[0].style.display="block";
+
+							}
+						}
+					}
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="headerContact">
+	<a href="tel:+381628875710"><img src="/icons/phone.png"></a><a href="mailto:info@25maj.rs"><img src="/icons/e-mail.png"></a>
+</div>

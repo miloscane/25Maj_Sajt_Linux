@@ -1,0 +1,173 @@
+<%- include ("partials/header") -%>
+	<div class="pageHeaderFixed" style="background-color:rgb(255,255,255)">
+		<div style="height:600px">
+			<video poster="/images/videos/home1.jpg" autoplay loop muted playsinline>
+				<source src="/videos/dron2.mp4" type="video/mp4">
+			</video>
+		</div>
+	</div>
+	<div class="pageHeaderSpace"></div>
+	<div class="bellowFixedHeader"></div>
+	<div class="section padded white">
+		<div class="contentWidth">
+			<div class="inlineHalf home2Boxes">
+				<div class="inline">
+					<div class="blueBox" onclick="window.location.href='/besplatni-programi-deca'">
+						<div class="icon">
+							<img src="/icons/deca.png">
+						</div>
+						<div class="title">Бесплатни програми<br>за децу</div>
+					</div>
+				</div>
+				<div class="inline">
+					<div class="blueBox" onclick="window.location.href='/besplatni-programi-penzioneri'">
+						<div class="icon">
+							<img src="/icons/penzioneri.png">
+						</div>
+						<div class="title">Бесплатни програми<br>за пензионере</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section" style="position: relative;">
+		<div class="topFade"></div>
+		<div class="bottomFade"></div>
+		<div class="backgroundVideo">
+			<video poster="/images/videos/water2.jpg" autoplay loop muted playsinline>
+				<source src="/images/videos/water2.mp4" type="video/mp4">
+			</video>
+		</div>
+		<div class="videoBackground padded">
+			<div class="contentWidth">
+				<div class="sectionTitle">НАЈНОВИЈА ОБАВЕШТЕЊА</div>
+				<div class="obavestenja">
+					<!--<div class="obavestenje">
+						<div class="date">13.05.2022.</div>
+						<div class="title">Otkazivanje termina 14/05/2022</div>
+						<div class="text">
+							Usled održavanja takmičenja na zatvorenom bazenu sportskog centra 25. maj otkazuju se sledeći termini za građanstvo u subotu 14. maja 2022. godine.
+						</div>
+						<div class="buttonWrap">
+							<div class="button">
+								Pročitaj
+							</div>
+						</div>
+					</div>
+					<div class="obavestenje">
+						<div class="date">13.05.2022.</div>
+						<div class="title">Otkazivanje večernjeg termina 07/05/2022</div>
+						<div class="text">
+							Usled održavanja Letnje lige Beograda u plivanju, otkazuje se večernji termin za građanstvo u subotu 07.05. od 21 do 23 časa.
+						</div>
+						<div class="buttonWrap">
+							<div class="button">
+								Pročitaj
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<script>
+					var obavestenja		=	JSON.parse(<%- JSON.stringify(obavestenja) %>);
+					obavestenja.sort(function(a, b) {
+					    return parseFloat(b.actualdate) - parseFloat(a.actualdate);
+					});
+					var counter			=	0;
+					for(var i=0;i<obavestenja.length;i++){
+						var obavestenjeJson	=	obavestenja[i];
+						if(counter>=2){
+							break;
+						}
+						if(Number(obavestenjeJson.visible)==1){
+							counter++;
+							
+							var obavestenje	=	document.createElement("DIV");
+							obavestenje.setAttribute("class","obavestenje");
+
+								var date	=	document.createElement("DIV");
+								date.setAttribute("class","date");
+								date.innerHTML = obavestenjeJson.date.split("-")[2]+"."+obavestenjeJson.date.split("-")[1]+"."+obavestenjeJson.date.split("-")[0]+".";
+								obavestenje.appendChild(date);
+
+								var box		=	document.createElement("DIV");
+								box.setAttribute("class","obvBox");
+									var title	=	document.createElement("DIV");
+									title.setAttribute("class","title");
+									title.innerHTML = obavestenjeJson.title;
+									box.appendChild(title);
+
+									var text	=	document.createElement("DIV");
+									text.setAttribute("class","text");
+									text.innerHTML = obavestenjeJson.text;
+									box.appendChild(text);
+								obavestenje.appendChild(box);
+
+								var buttonWrap	=	document.createElement("DIV");
+								buttonWrap.setAttribute("class","buttonWrap");
+									var button	=	document.createElement("DIV");
+									button.setAttribute("class","button");
+									button.setAttribute("onclick","window.location.href='/obavestenje/"+obavestenjeJson.id+"'");
+									button.innerHTML	=	"Прочитај";
+									buttonWrap.appendChild(button);
+								obavestenje.appendChild(buttonWrap)
+							document.getElementsByClassName("obavestenja")[0].appendChild(obavestenje);
+						}
+					}
+				</script>
+				<div class="padded" style="text-align: center;">
+					<div class="blueButton">
+						<a href="/obavestenja">СВА ОБАВЕШТЕЊА</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="section white padded">
+		<div class="contentWidth">
+			<div class="sectionTitle">ПРИЈАВА ЗА ЊУЗЛЕТЕР</div>
+			<div class="titleIconSeparator">
+				<div class="line"></div>
+				<div class="icon">
+					<img src="/icons/notification.png">
+				</div>
+				<div class="line"></div>
+			</div>
+			<div class="smallText">
+				Оставите е-мејл или мобилни телефон и будите у току са најновијим дешавањима везано за 25. Мај.<br>Ваши подаци се чувају енкриптовани и служе исклјучиво ради контакта.
+			</div>
+			<div class="smallContent" style="margin-top:10px">
+				<div class="newsletter inlineHalf">
+					<form>
+						<div class="inline">
+							<input type="email" placeholder="Е-мејл">
+						</div>
+						<div class="inline">
+							<input type="tel" placeholder="Телефон">
+						</div>
+					</form>
+				</div>
+				<div style="text-align: center;margin-top:10px">
+					<div class="blueButton">
+						<a href="#">ПРИЈАВА</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section white">
+		<div id="map"></div>
+		<script src="/js/map.js?<%=fileVersion%>"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsUyoMs0Ba_6bPbtD5A5_1yOJXjjMYsMQ&amp;callback=initMap" async="" defer=""></script>
+        <div class="navButton blueButton">
+        	<a href="https://www.google.com/maps/dir//Sports+and+Recreational+Center+%22Milan+Gale+Mu%C5%A1katirovi%C4%87%22,+Tadeu%C5%A1a+Ko%C5%A1%C4%87u%C5%A1ka+63,+Beograd+110000/@44.8293988,20.4513149,17.77z/data=!4m9!4m8!1m0!1m5!1m1!1s0x475a65374a579c6f:0x51c018508aaf5907!2m2!1d20.4539115!2d44.8299838!3e0" rel="external" target="_blank">НАВИГАЦИЈА</a>
+        </div>
+	</div>
+	<div class="section" style="background-color:rgb(255,255,255);text-align:center;">
+		<video style="max-width:100%" poster="/images/videos/swim1.jpg" autoplay loop muted playsinline>
+			<source src="/images/videos/swim1.mp4" type="video/mp4">
+		</video>
+	</div>
+<%- include ("partials/footer") -%>
